@@ -3,39 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>laughing-man.js</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-  <button id="detect" onclick="detect()"  class="btn btn-lg btn-primary">Detect faces</button>
-  <p> <img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Google_team_group_photo_with_Vanhanen.jpg/640px-Google_team_group_photo_with_Vanhanen.jpg" crossorigin="anonymous" width=320> </p>
-  <footer></footer>
+  <video autoplay="true" ></video>
 
   <script>
+    const video = document.querySelector('video')
 
-    function detect() {
-      if (window.FaceDetector == undefined) {
-        console.error('Face Detection not supported');
-        return;
-      }
-
-      var theImage = document.getElementById('image');
-      var faceDetector = new FaceDetector();
-      faceDetector.detect(theImage)
-        .then(faces => {
-      console.log('click')
-          var footer = document.getElementsByTagName('footer')[0];
-          footer.innerHTML =
-              '<p>Detected ' + faces.length + ' faces</p><ul>';
-          for(var i = 0; i < faces.length; i++) {
-            const face = faces[i].boundingBox;
-            footer.innerHTML +=
-                '<li>@ (' + face.x + ',' + face.y + '), size ' +
-                face.width + 'x' + face.height + '</li>';
-          }
-          footer.innerHTML += '</ul>';
-        }).catch((e) => {
-          console.error("Boo, Face Detection failed: " + e);
-        })
-    }
+    navigator.mediaDevices.getUserMedia({video: true})
+      .then(stream => {
+        video.srcObject = stream
+        video.onloadmetadata = video.play
+      })
 
   </script>
 </body>
