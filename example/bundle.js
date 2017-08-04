@@ -67,14 +67,14 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1)
+__webpack_require__(1)()
 
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = () => console.log('Parla!')
+module.exports = () => console.log('Parla!!!')
 
 
 /***/ })

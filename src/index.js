@@ -1,1 +1,1 @@
-module.exports = () => console.log('Parla!')
+module.exports = () => console.log('Parla!!!')

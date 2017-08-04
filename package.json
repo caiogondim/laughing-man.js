@@ -13,7 +13,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "build:watch": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
