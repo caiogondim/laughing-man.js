@@ -1,0 +1,29 @@
+{
+  "name": "laughing-man",
+  "version": "1.0.0",
+  "description": "laughing man",
+  "main": "webpack.config.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "2.30.1",
+    "webpack": "3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caiogondim/laughing-man.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caiogondim/laughing-man.js/issues"
+  },
+  "homepage": "https://github.com/caiogondim/laughing-man.js#readme"
+}
