@@ -16,19 +16,28 @@
 </head>
 <body>
   <video id="video" muted style="display: none;"></video>
-  <canvas id="canvas"></canvas>
+  <!-- <canvas id="canvas" width="1280" height="720"></canvas> -->
+  <img id="laughingMan" style="display: none;" src="../img/laughing-man.png" alt="">
 
   <script>
     const faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 })
     let isDetectingFaces = false
     let faces = []
+    let canvas
+
+    function createCanvas() {
+      canvas = document.createElement('canvas')
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      document.querySelector('body').appendChild(canvas)
+    }
 
     async function getUserMedia() {
       video.srcObject = await navigator.mediaDevices.getUserMedia({ video: {
         facingMode: 'user',
         frameRate: 60,
-        width: 1280,
-        height: 720
+        width: window.innerWidth,
+        height: window.innerHeight
       }})
       await video.play()
       draw()
@@ -42,7 +51,13 @@
       if (faces.length) {
         const face = faces[0].boundingBox
         context.strokeRect(face.left, face.top, face.width, face.height)
-        console.log({ face })
+        context.drawImage(
+          laughingMan,
+          (face.left - (face.width * 0.25)),
+          (face.top - (face.height * 0.25)),
+          (face.width * 1.5),
+          (face.height * 1.5)
+        )
       }
 
       if (isDetectingFaces) return
@@ -53,6 +68,7 @@
     }
 
     async function main() {
+      createCanvas()
       await getUserMedia()
       draw()
     }
