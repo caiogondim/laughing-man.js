@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      width: 100vw;
+      }
+  </style>
+</head>
+<body>
+  <video id="video" muted style="display: none;"></video>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 })
+    let isDetectingFaces = false
+    let faces = []
+
+    async function getUserMedia() {
+      video.srcObject = await navigator.mediaDevices.getUserMedia({ video: {
+        facingMode: 'user',
+        frameRate: 60,
+        width: 1280,
+        height: 720
+      }})
+      await video.play()
+      draw()
+    }
+
+    async function draw() {
+      requestAnimationFrame(draw)
+      const context = canvas.getContext('2d')
+      context.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+      if (faces.length) {
+        const face = faces[0].boundingBox
+        context.strokeRect(face.left, face.top, face.width, face.height)
+        console.log({ face })
+      }
+
+      if (isDetectingFaces) return
+
+      isDetectingFaces = true
+      faces = await faceDetector.detect(canvas)
+      isDetectingFaces = false
+    }
+
+    async function main() {
+      await getUserMedia()
+      draw()
+    }
+
+    main()
+
+  </script>
+</body>
+</html>
