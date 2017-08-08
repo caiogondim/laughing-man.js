@@ -11,16 +11,23 @@
 
     canvas {
       width: 100vw;
-      }
+    }
+
+    img {
+      position: absolute;
+      display: block;
+      display: none;
+      transition: all 0.5s;
+    }
   </style>
 </head>
 <body>
+  <img id="laughingMan" src="../img/laughing-man.png" alt="" />
   <video id="video" muted style="display: none;"></video>
-  <!-- <canvas id="canvas" width="1280" height="720"></canvas> -->
-  <img id="laughingMan" style="display: none;" src="../img/laughing-man.png" alt="">
 
   <script>
     const faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 })
+    const laughingMan = document.querySelector('#laughingMan')
     let isDetectingFaces = false
     let faces = []
     let canvas
@@ -50,14 +57,13 @@
 
       if (faces.length) {
         const face = faces[0].boundingBox
-        context.strokeRect(face.left, face.top, face.width, face.height)
-        context.drawImage(
-          laughingMan,
-          (face.left - (face.width * 0.25)),
-          (face.top - (face.height * 0.25)),
-          (face.width * 1.5),
-          (face.height * 1.5)
-        )
+        laughingMan.style.display = 'block'
+        laughingMan.style.left = `${face.left - (face.width * 0.4)}px`
+        laughingMan.style.top = `${face.top - (face.height * 0.6)}px`
+        laughingMan.style.width = `${face.width * 1.8}px`
+        laughingMan.style.height = `${face.height * 1.8}px`
+      } else {
+        laughingMan.style.display = 'none'
       }
 
       if (isDetectingFaces) return
