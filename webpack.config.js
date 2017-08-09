@@ -6,7 +6,22 @@ const webpackConfig = {
     path: `${__dirname}/example/`,
     filename: 'bundle.js'
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [new HtmlWebpackPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: Infinity
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
 
 module.exports = webpackConfig
