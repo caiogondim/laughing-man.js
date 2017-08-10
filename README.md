@@ -31,7 +31,7 @@ laughingMan(video, { overlay: imgOverlay })
 
 ## Preview
 
-<img src="./img/video-example.gif" alt="">
+<img src="https://github.com/caiogondim/laughing-man.js/raw/master/img/video-example.gif" alt="Preview" />
 
 ## Credits
 
