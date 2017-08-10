@@ -2,7 +2,7 @@
   "name": "laughing-man",
   "version": "1.0.0",
   "description": "laughing man",
-  "main": "webpack.config.js",
+  "main": "src/index.js",
   "directories": {
     "example": "example"
   },
@@ -12,6 +12,9 @@
   "devDependencies": {
     "standard": "10.0.3"
   },
+  "files": [
+    "src/"
+  ],
   "scripts": {
     "test": "standard --fix 'src/**/*.js'",
     "build": "webpack --config webpack.config.js",
@@ -22,7 +25,7 @@
     "url": "git+https://github.com/caiogondim/laughing-man.js.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Caio Gondim",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/caiogondim/laughing-man.js/issues"
