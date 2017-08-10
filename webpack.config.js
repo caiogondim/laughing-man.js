@@ -1,10 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const webpackConfig = {
-  entry: './example/video.js',
+  entry: {
+    video: './example/video.js',
+  },
   output: {
     path: `${__dirname}/example/`,
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   plugins: [new HtmlWebpackPlugin()],
   module: {
