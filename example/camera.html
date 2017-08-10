@@ -2,85 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>laughing-man.js</title>
+  <link rel="icon" type="image/png" href="./laughing-man.png">
   <style>
     html, body {
       margin: 0;
       padding: 0;
     }
-
-    canvas {
-      width: 100vw;
-    }
-
-    img {
-      position: absolute;
-      display: block;
-      display: none;
-      transition: all 0.5s;
-    }
   </style>
 </head>
 <body>
-  <img id="laughingMan" src="../img/laughing-man.png" alt="" />
-  <video id="video" muted style="display: none;"></video>
-
+  <script src="../build/laughing-man.js"></script>
   <script>
-    const faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 })
-    const laughingMan = document.querySelector('#laughingMan')
-    let isDetectingFaces = false
-    let faces = []
-    let canvas
+    const $body = document.querySelector('body')
 
-    function createCanvas() {
-      canvas = document.createElement('canvas')
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      document.querySelector('body').appendChild(canvas)
+    function createLaughingManImg() {
+      const $img = document.createElement('img')
+      $img.src = './laughing-man-animated.svg'
+      $img.style.display = 'none'
+      $body.appendChild($img)
+
+      return $img
     }
 
-    async function getUserMedia() {
-      video.srcObject = await navigator.mediaDevices.getUserMedia({ video: {
+    function createVideoElement() {
+      const $video = document.createElement('video')
+      $video.style.maxWidth = '100vw'
+      $body.appendChild($video)
+
+      return $video
+    }
+
+    function playCameraOnVideo($video) {
+      return navigator.mediaDevices.getUserMedia({ video: {
         facingMode: 'user',
         frameRate: 60,
         width: window.innerWidth,
         height: window.innerHeight
       }})
-      await video.play()
-      draw()
+        .then(srcObject => $video.srcObject = srcObject)
+        .then(() => $video.play())
     }
 
-    async function draw() {
-      requestAnimationFrame(draw)
-      const context = canvas.getContext('2d')
-      context.drawImage(video, 0, 0, canvas.width, canvas.height)
+    //
+    // Main
+    //
 
-      if (faces.length) {
-        const face = faces[0].boundingBox
-        laughingMan.style.display = 'block'
-        laughingMan.style.left = `${face.left - (face.width * 0.4)}px`
-        laughingMan.style.top = `${face.top - (face.height * 0.6)}px`
-        laughingMan.style.width = `${face.width * 1.8}px`
-        laughingMan.style.height = `${face.height * 1.8}px`
-      } else {
-        laughingMan.style.display = 'none'
-      }
-
-      if (isDetectingFaces) return
-
-      isDetectingFaces = true
-      faces = await faceDetector.detect(canvas)
-      isDetectingFaces = false
-    }
-
-    async function main() {
-      createCanvas()
-      await getUserMedia()
-      draw()
-    }
-
-    main()
-
+    const $img = createLaughingManImg()
+    const $video = createVideoElement()
+    playCameraOnVideo($video)
+      .then(() => laughingMan($video, { overlay: $img}))
   </script>
 </body>
 </html>
