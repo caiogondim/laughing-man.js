@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const webpackConfig = {
-  entry: './example/index.js',
+  entry: './example/video.js',
   output: {
     path: `${__dirname}/example/`,
     filename: 'bundle.js'

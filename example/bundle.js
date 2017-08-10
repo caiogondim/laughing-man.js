@@ -69,32 +69,45 @@
 
 const Hls = __webpack_require__(1)
 const laughingMan = __webpack_require__(2)
-// const overlayImg = require('../img/laughing-man-animated.svg')
 const $body = document.querySelector('body')
-const img = document.createElement('img')
-img.src = './laughing-man-animated.svg'
-img.style.display = 'none'
-$body.appendChild(img)
 
-const $video = document.createElement('video')
-$video.style.maxWidth = '100vw'
-$body.appendChild($video)
-
-if (Hls.isSupported()) {
-  const hls = new Hls()
-  // const source = 'https://video.nyt.com/video-media/hls/2017/08/03/73616_1_00trump-immigration_wg/master.m3u8'
-  // const source = 'https://vp.nyt.com/video/2017/08/08/73657_1_09trump-nkorea_wg_hls/master.m3u8'
-  const source = 'https://video.nyt.com/video-media/hls/2017/08/04/73625_1_04sessions-leaks-presser_wg/master.m3u8'
-  hls.loadSource(source)
-  hls.attachMedia($video);
-  hls.on(Hls.Events.MANIFEST_PARSED, () => {
-    $video.play().then(() => {
-      laughingMan($video, { overlay: img})
-    });
-  })
-} else {
-  throw new Error('HLS.js not supported.')
+function createLaughingManImg() {
+  const img = document.createElement('img')
+  img.src = './laughing-man-animated.svg'
+  img.style.display = 'none'
+  $body.appendChild(img)
 }
+
+function createVideoElement() {
+  const $video = document.createElement('video')
+  $video.style.maxWidth = '100vw'
+  $body.appendChild($video)
+
+  if (!Hls.isSupported()) {
+    throw new Error('HLS.js not supported.')
+  }
+
+  return new Promise((resolve, reject) => {
+    const hls = new Hls()
+    // const source = 'https://video.nyt.com/video-media/hls/2017/08/03/73616_1_00trump-immigration_wg/master.m3u8'
+    // const source = 'https://vp.nyt.com/video/2017/08/08/73657_1_09trump-nkorea_wg_hls/master.m3u8'
+    const source = 'https://video.nyt.com/video-media/hls/2017/08/04/73625_1_04sessions-leaks-presser_wg/master.m3u8'
+    hls.loadSource(source)
+    hls.attachMedia($video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      $video.play().then(() => resolve($video))
+    })
+  })
+}
+
+//
+// Main
+//
+
+createLaughingManImg()
+createVideoElement()
+  .then($video => laughingMan($video, { overlay: img}))
+
 
 
 /***/ }),
@@ -16469,7 +16482,7 @@ function createDrawFunction() {
       const face = faces[0].boundingBox
       overlay.style.display = 'block'
       overlay.style.left = `${face.left - (face.width * 0.5)}px`
-      overlay.style.top = `${face.top - (face.height * 0.5)}px`
+      overlay.style.top = `${face.top - (face.height * 0.75)}px`
       overlay.style.width = `${face.width * 2}px`
       overlay.style.height = `${face.height * 2}px`
     } else {

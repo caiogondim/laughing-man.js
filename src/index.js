@@ -41,7 +41,7 @@ function createDrawFunction() {
       const face = faces[0].boundingBox
       overlay.style.display = 'block'
       overlay.style.left = `${face.left - (face.width * 0.5)}px`
-      overlay.style.top = `${face.top - (face.height * 0.5)}px`
+      overlay.style.top = `${face.top - (face.height * 0.75)}px`
       overlay.style.width = `${face.width * 2}px`
       overlay.style.height = `${face.height * 2}px`
     } else {
