@@ -33,6 +33,10 @@ laughingMan(video, { overlay: imgOverlay })
 
 <img src="./img/video-example.gif" alt="">
 
+## Credits
+
+- [Laughing Man animated SVG](https://gist.github.com/johan/1066590)
+
 ---
 
 [caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
