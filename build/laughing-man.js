@@ -77,15 +77,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports) {
 
-function setOverlayStyle(overlay) {
+function setOverlayStyle (overlay) {
   overlay.style.transition = 'all 0.5s'
   overlay.style.display = 'none'
   overlay.style.position = 'absolute'
   overlay.style.zIndex = '1'
 }
 
-function createCanvas(video) {
-  canvas = document.createElement('canvas')
+function createCanvas (video) {
+  const canvas = document.createElement('canvas')
   const videoCompStyle = window.getComputedStyle(video)
   canvas.width = videoCompStyle.width.replace('px', '')
   canvas.height = videoCompStyle.height.replace('px', '')
@@ -95,22 +95,22 @@ function createCanvas(video) {
   return canvas
 }
 
-function hideOverlay(overlay) {
+function hideOverlay (overlay) {
   return setTimeout(() => {
     overlay.style.display = 'none'
   }, 500)
 }
 
-function createDrawFunction() {
-  const faceDetector = new FaceDetector({ maxDetectedFaces: 1 })
+function createDrawFunction () {
+  const faceDetector = new window.FaceDetector({ maxDetectedFaces: 1 })
   let isDetectingFaces = false
   let faces = []
   let hideTimeout
 
-  return async function draw(canvas, video, overlay) {
+  return async function draw (canvas, video, overlay) {
     window.requestAnimationFrame(() => draw(canvas, video, overlay))
     const context = canvas.getContext('2d')
-    const videoCompStyle = getComputedStyle(video)
+    const videoCompStyle = window.getComputedStyle(video)
     const videoWidth = videoCompStyle.width.replace('px', '')
     const videoHeight = videoCompStyle.height.replace('px', '')
     context.drawImage(video, 0, 0, videoWidth, videoHeight)

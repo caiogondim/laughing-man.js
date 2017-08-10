@@ -1,5 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
 const webpackConfig = {
   entry: './src/index.js',
   output: {
