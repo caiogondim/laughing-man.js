@@ -16,10 +16,6 @@ Examples:
 npm install --save laughing-man
 ```
 
-## Preview
-
-<img src="./img/video-example.gif" alt="">
-
 ## Usage
 
 Pass the video and image you want to put on top of the detected face.
@@ -32,6 +28,10 @@ const imgOverlay = document.querySelector('img.overlay')
 
 laughingMan(video, { overlay: imgOverlay })
 ```
+
+## Preview
+
+<img src="./img/video-example.gif" alt="">
 
 ---
 
