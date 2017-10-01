@@ -28,6 +28,8 @@
     function createVideoElement() {
       const $video = document.createElement('video')
       $video.style.maxWidth = '100vw'
+      $video.style.width = '100vw'
+      $video.style.maxHeight = '100vh'
       $body.appendChild($video)
 
       return $video
@@ -36,12 +38,25 @@
     function playCameraOnVideo($video) {
       return navigator.mediaDevices.getUserMedia({ video: {
         facingMode: 'user',
-        frameRate: 60,
-        width: window.innerWidth,
-        height: window.innerHeight
+        frameRate: 60
       }})
         .then(srcObject => $video.srcObject = srcObject)
         .then(() => $video.play())
+    }
+
+    function handleError(error) {
+      const errorP = document.createElement('p')
+      if (error.name === 'DevicesNotFoundError') {
+        errorP.innerHTML = 'No camera detected. <br> Do you have any camera connected?'
+      } else if (error.name === 'NotAllowedError') {
+        errorP.innerHTML = 'You have to allow camera access in order to run this experiment.'
+      } else {
+        errorP.innerHTML = 'Error. <br> Does your browser supports FaceDetector API?'
+      }
+
+      $body.innerHTML = ''
+      $body.appendChild(errorP)
+      console.error(error)
     }
 
     //
@@ -51,7 +66,8 @@
     const $img = createLaughingManImg()
     const $video = createVideoElement()
     playCameraOnVideo($video)
-      .then(() => laughingMan($video, { overlay: $img}))
+      .then(() => laughingMan($video, { overlay: $img }))
+      .catch(handleError)
   </script>
 </body>
 </html>
