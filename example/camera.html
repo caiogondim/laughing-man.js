@@ -50,6 +50,8 @@
         errorP.innerHTML = 'No camera detected. <br> Do you have any camera connected?'
       } else if (error.name === 'NotAllowedError') {
         errorP.innerHTML = 'You have to allow camera access in order to run this experiment.'
+      } else if (navigator.userAgent.indexOf('Chrome') > -1) {
+        errorP.innerHTML = 'Error. <br> Enable experimental features on <code>chrome://flags/#enable-experimental-web-platform-features</code>'
       } else {
         errorP.innerHTML = 'Error. <br> Does your browser supports FaceDetector API?'
       }

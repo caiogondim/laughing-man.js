@@ -47,6 +47,19 @@
       })
     }
 
+    function handleError(error) {
+      const errorP = document.createElement('p')
+      if (navigator.userAgent.indexOf('Chrome') > -1) {
+        errorP.innerHTML = 'Error. <br> Enable experimental features on <code>chrome://flags/#enable-experimental-web-platform-features</code>'
+      } else {
+        errorP.innerHTML = 'Error. <br> Does your browser supports FaceDetector API?'
+      }
+
+      $body.innerHTML = ''
+      $body.appendChild(errorP)
+      console.error(error)
+    }
+
     //
     // Main
     //
@@ -54,6 +67,7 @@
     const $img = createLaughingManImg()
     createVideoElement()
       .then($video => laughingMan($video, { overlay: $img}))
+      .catch(handleError)
   </script>
 </body>
 </html>
