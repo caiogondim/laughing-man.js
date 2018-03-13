@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/caiogondim/laughing-man.js/master/img/icon.png" />
 
-<h1 align="center">laughing-man.js</h1>
+# laughing-man
 
 <br>
 
